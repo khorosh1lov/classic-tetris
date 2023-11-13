@@ -51,7 +51,7 @@ export class Tetris {
 	moveTetrominoLeft() {
 		this.tetromino.column -= 1;
 		if (!this.isValid()) {
-			this.tetromino.row += 1;
+			this.tetromino.column += 1;
 		}
 	}
 
@@ -65,7 +65,7 @@ export class Tetris {
 	rotateTetromino() {
 		const currentMatrix = this.tetromino.matrix;
 		const rotatedMatrix = rotateMatrix(this.tetromino.matrix);
-		
+
 		this.tetromino.matrix = rotatedMatrix;
 
 		if (!this.isValid()) {
@@ -82,7 +82,13 @@ export class Tetris {
 				if (this.isOutOfBound(row, column)) return false;
 			}
 		}
-		
+
 		return true;
+	}
+
+	isOutOfBound(row, column) {
+		return this.tetromino.column + column < 0 ||
+			this.tetromino.column + column >= GAME_FIELD_COLUMNS ||
+			this.tetromino.row + row >= this.gameField.length;
 	}
 }
