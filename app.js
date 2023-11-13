@@ -24,6 +24,11 @@ const draw = () => {
     drawTetromino();
 }
 
+const rotate = () => {
+	tetris.rotateTetromino();
+	draw();
+};
+
 const moveDown = () => {
 	tetris.moveTetrominoDown();
     draw();
@@ -41,6 +46,9 @@ const moveRight = () => {
 
 const onKeyDown = (event) => {
     switch (event.key) {
+		case 'Shift':
+			rotate();
+			break;
 		case 'ArrowDown':
 			moveDown();
 			break;
