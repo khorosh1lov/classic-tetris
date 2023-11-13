@@ -43,18 +43,46 @@ export class Tetris {
 
 	moveTetrominoDown() {
 		this.tetromino.row += 1;
+		if (!this.isValid()) {
+			this.tetromino.row -= 1;
+		}
 	}
 
 	moveTetrominoLeft() {
 		this.tetromino.column -= 1;
+		if (!this.isValid()) {
+			this.tetromino.row += 1;
+		}
 	}
 
 	moveTetrominoRight() {
 		this.tetromino.column += 1;
+		if (!this.isValid()) {
+			this.tetromino.column -= 1;
+		}
 	}
 
 	rotateTetromino() {
+		const currentMatrix = this.tetromino.matrix;
 		const rotatedMatrix = rotateMatrix(this.tetromino.matrix);
+		
 		this.tetromino.matrix = rotatedMatrix;
+
+		if (!this.isValid()) {
+			this.tetromino.matrix = currentMatrix;
+		}
+	}
+
+	isValid() {
+		const matrixSize = this.tetromino.matrix.length;
+
+		for (let row = 0; row < matrixSize; row++) {
+			for (let column = 0; column < matrixSize; column++) {
+				if (!this.tetromino.matrix[row][column]) continue;
+				if (this.isOutOfBound(row, column)) return false;
+			}
+		}
+		
+		return true;
 	}
 }
