@@ -50,15 +50,18 @@ export function convertPosToIndex(row, column) {
 
 export function rotateMatrix(matrix) {
 	const N = matrix.length;
-	const rotatedMatrix = [];
 
+	// Transpose the matrix
 	for (let i = 0; i < N; i++) {
-		rotatedMatrix[i] = [];
-
-		for (let j = 0; j < N; j++) {
-			rotatedMatrix[i][j] = matrix[N - j - 1][i];
+		for (let j = i; j < N; j++) {
+			[matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
 		}
 	}
 
-	return rotatedMatrix;
+	// Reverse each row
+	for (let i = 0; i < N; i++) {
+		matrix[i].reverse();
+	}
+
+	return matrix;
 }
