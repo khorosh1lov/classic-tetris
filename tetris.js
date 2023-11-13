@@ -3,7 +3,8 @@ import {
 	GAME_FIELD_ROWS,
 	TETROMINOES,
 	TETROMINO_NAMES,
-	getRandomElement
+	getRandomElement,
+	rotateMatrix
 } from './utils.js';
 
 export class Tetris {
@@ -52,8 +53,8 @@ export class Tetris {
 		this.tetromino.column += 1;
 	}
 
-	/* rotateTetromino() {
+	rotateTetromino() {
 		const rotatedMatrix = rotateMatrix(this.tetromino.matrix);
 		this.tetromino.matrix = rotatedMatrix;
-	} */
+	}
 }
