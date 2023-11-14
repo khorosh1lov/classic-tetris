@@ -45,6 +45,7 @@ export class Tetris {
 		this.tetromino.row += 1;
 		if (!this.isValid()) {
 			this.tetromino.row -= 1;
+			this.placeTetromino();
 		}
 	}
 
@@ -90,5 +91,19 @@ export class Tetris {
 		return this.tetromino.column + column < 0 ||
 			this.tetromino.column + column >= GAME_FIELD_COLUMNS ||
 			this.tetromino.row + row >= this.gameField.length;
+	}
+
+	placeTetromino() {
+		const matrixSize = this.tetromino.matrix.length;
+
+		for (let row = 0; row < matrixSize; row++) {
+			for (let column = 0; column < matrixSize; column++) {
+				if (!this.tetromino.matrix[row][column]) continue;
+
+				this.gameField[this.tetromino.row + row][this.tetromino.column + column] = this.tetromino.name;
+			}
+		}
+
+		this.generateTetromino();
 	}
 }
