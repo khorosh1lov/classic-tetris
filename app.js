@@ -1,9 +1,21 @@
+import { GAME_FIELD_COLUMNS, GAME_FIELD_ROWS, convertPosToIndex } from './utils.js';
+
 import { Tetris } from "./tetris.js";
-import { convertPosToIndex } from './utils.js';
 
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
 
+const drawGameField = () => {
+	for (let row = 0; row < GAME_FIELD_ROWS; row++) {
+		for (let column = 0; column < GAME_FIELD_COLUMNS; column++) {
+			if (!tetris.gameField[row][column]) continue;
+			const name = tetris.gameField[row][column];
+			const cellIndex = convertPosToIndex(row, column);
+			cells[cellIndex].classList.add(name);
+		}
+	}
+}
+ 
 const drawTetromino = () => {
 	const name = tetris.tetromino.name;
 	const tetrominoMatrixSize = tetris.tetromino.matrix.length;
@@ -21,6 +33,7 @@ const drawTetromino = () => {
 
 const draw = () => {
     cells.forEach(cell => cell.removeAttribute('class'));
+	drawGameField();
     drawTetromino();
 }
 
