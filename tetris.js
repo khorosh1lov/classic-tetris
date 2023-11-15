@@ -21,8 +21,6 @@ export class Tetris {
 
 	generateGameField() {
 		this.gameField = new Array(GAME_FIELD_ROWS).fill().map(() => new Array(GAME_FIELD_COLUMNS).fill(0));
-
-		//console.table(this.gameField);
 	}
 
 	generateTetromino() {
@@ -30,8 +28,7 @@ export class Tetris {
 		const matrix = TETROMINOES[name];
 
 		const column = GAME_FIELD_COLUMNS / 2 - Math.floor(matrix.length / 2);
-		//const row = -2;
-		const row = 3;
+		const row = -2;
 
 		this.tetromino = {
 			name,
