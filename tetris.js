@@ -69,8 +69,20 @@ export class Tetris {
 
 		this.tetromino.matrix = rotatedMatrix;
 
-		if (!this.isValid()) {
-			this.tetromino.matrix = currentMatrix;
+		// Adjust the tetromino position if it's out of bounds
+		while (!this.isValid()) {
+			// If the tetromino is out of the left boundary, shift it to the right
+			if (this.isOutOfLeftBound()) {
+				this.tetromino.column += 1;
+			}
+			// If the tetromino is out of the right boundary, shift it to the left
+			else if (this.isOutOfRightBound()) {
+				this.tetromino.column -= 1;
+			} else {
+				// If the tetromino cannot be adjusted to fit, revert to the original matrix
+				this.tetromino.matrix = currentMatrix;
+				break;
+			}
 		}
 	}
 
@@ -88,9 +100,33 @@ export class Tetris {
 	}
 
 	isOutOfBound(row, column) {
-		return this.tetromino.column + column < 0 ||
-			this.tetromino.column + column >= GAME_FIELD_COLUMNS ||
-			this.tetromino.row + row >= this.gameField.length;
+		return this.tetromino.column + column < 0 || this.tetromino.column + column >= GAME_FIELD_COLUMNS || this.tetromino.row + row >= this.gameField.length;
+	}
+
+	isOutOfLeftBound() {
+		for (let row = 0; row < this.tetromino.matrix.length; row++) {
+			for (let col = 0; col < this.tetromino.matrix[row].length; col++) {
+				if (this.tetromino.matrix[row][col] !== 0) {
+					if (this.tetromino.column + col < 0) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	isOutOfRightBound() {
+		for (let row = 0; row < this.tetromino.matrix.length; row++) {
+			for (let col = 0; col < this.tetromino.matrix[row].length; col++) {
+				if (this.tetromino.matrix[row][col] !== 0) {
+					if (this.tetromino.column + col >= GAME_FIELD_COLUMNS) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	placeTetromino() {
