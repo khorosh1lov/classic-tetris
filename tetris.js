@@ -28,7 +28,7 @@ export class Tetris {
 		const matrix = TETROMINOES[name];
 
 		const column = GAME_FIELD_COLUMNS / 2 - Math.floor(matrix.length / 2);
-		const row = -2;
+		const row = 0;
 
 		this.tetromino = {
 			name,
