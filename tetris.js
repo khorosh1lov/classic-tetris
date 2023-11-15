@@ -93,6 +93,7 @@ export class Tetris {
 			for (let column = 0; column < matrixSize; column++) {
 				if (!this.tetromino.matrix[row][column]) continue;
 				if (this.isOutOfBound(row, column)) return false;
+				if (this.isCollides(row, column)) return false;
 			}
 		}
 
@@ -127,6 +128,10 @@ export class Tetris {
 			}
 		}
 		return false;
+	}
+
+	isCollides(row, column) {
+		return this.gameField[this.tetromino.row + row]?.[this.tetromino.column + column];
 	}
 
 	placeTetromino() {
